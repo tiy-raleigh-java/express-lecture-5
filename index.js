@@ -28,5 +28,25 @@ app.get('/food/:id', function(req, res) {
   });
 });
 
+// show a random number
+app.get(
+  // this means to listen for a request to http://..../randomNumber
+  '/randomNumber',
+  // this is the code that gets run when the request comes in
+  function(req, res) {
+    // generate my random number
+    let myRandomNumber = Math.round(Math.random() * 100);
+
+    res.send(`<doctype HTML>
+      <html>
+        <head>
+        </head>
+        <body>
+          Your random number is ${myRandomNumber}
+        </body>
+      </html>`);
+  }
+);
+
 // make express listen on port 3000
 app.listen(3000);
