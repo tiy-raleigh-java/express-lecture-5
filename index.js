@@ -22,9 +22,9 @@ app.get('/', function(req, res) {
 });
 
 // show a particular food
-app.get('/food/:index', function(req, res) {
+app.get('/food/:id', function(req, res) {
   res.render('food', {
-    foodItem: foods[req.params.index]
+    foodItem: foods[req.params.id]
   });
 });
 
@@ -43,6 +43,13 @@ app.get(
     });
   }
 );
+
+// this endpoint will show a form I can use to add foods
+app.get('/foodForm', function(req, res) {
+  res.render('foodForm');
+});
+
+// this handles the posted data from the form and creates a new food item
 
 // make express listen on port 3000
 app.listen(3000);
