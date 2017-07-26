@@ -37,14 +37,10 @@ app.get(
     // generate my random number
     let myRandomNumber = Math.round(Math.random() * 100);
 
-    res.send(`<doctype HTML>
-      <html>
-        <head>
-        </head>
-        <body>
-          Your random number is ${myRandomNumber}
-        </body>
-      </html>`);
+    // render the randomNumber template using the provided information
+    res.render('randomNumber', {
+      randomNumber: myRandomNumber
+    });
   }
 );
 
