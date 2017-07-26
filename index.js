@@ -13,7 +13,7 @@ app.set('view engine', 'mustache');
 // tell express how to serve static files
 app.use(express.static('public'));
 
-// configure the / path
+// configure the webroot
 app.get('/', function(req, res) {
   res.render('home', {
     formattedDate: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
@@ -22,20 +22,20 @@ app.get('/', function(req, res) {
 });
 
 // show a particular food
-app.get('/food/:id', function(req, res) {
+app.get('/food/:index', function(req, res) {
   res.render('food', {
-    foodItem: foods[req.params.id]
+    foodItem: foods[req.params.index]
   });
 });
 
 // show a random number
 app.get(
   // this means to listen for a request to http://..../randomNumber
-  '/randomNumber',
+  '/randomNumber/:max',
   // this is the code that gets run when the request comes in
   function(req, res) {
     // generate my random number
-    let myRandomNumber = Math.round(Math.random() * 100);
+    let myRandomNumber = Math.round(Math.random() * req.params.max);
 
     // render the randomNumber template using the provided information
     res.render('randomNumber', {
