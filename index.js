@@ -1,5 +1,6 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
+const bodyParser = require('body-parser');
 const moment = require('moment');
 const foods = require('./food');
 const fs = require('fs');
@@ -12,6 +13,10 @@ app.set('view engine', 'mustache');
 
 // tell express how to serve static files
 app.use(express.static('public'));
+
+// tell express to use the bodyParser middleware to parse form data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // configure the webroot
 app.get('/', function(req, res) {
@@ -50,6 +55,16 @@ app.get('/foodForm', function(req, res) {
 });
 
 // this handles the posted data from the form and creates a new food item
+app.post('/addFood', function(req, res) {
+  // get the food item details from the posted body data
+  let foodItem = req.body;
+  // set the id for this item (this is not important in the future, it just needs to be here for now)
+  foodItem.id = foods.length;
+  // store the food item in our array of foods
+  foods.push(foodItem);
+
+  res.send('Yay! You added a food item.');
+});
 
 // make express listen on port 3000
 app.listen(3000);
