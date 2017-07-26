@@ -1,6 +1,7 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const moment = require('moment');
+const foods = require('./food');
 const fs = require('fs');
 const app = express();
 
@@ -14,19 +15,16 @@ app.use(express.static('public'));
 
 // configure the / path
 app.get('/', function(req, res) {
-  fs.readdir('./', function(err, files) {
-    res.render('home', {
-      formattedDate: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
-      fruits: files
-    });
+  res.render('home', {
+    formattedDate: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+    foods: foods
   });
 });
 
-// show some food
-app.get('/food/:fruit', function(req, res) {
-  //res.send('<h1>Apple</h1><a href="/">home</a>');
-  res.render('fruit', {
-    fruit: req.params.fruit
+// show a particular food
+app.get('/food/:id', function(req, res) {
+  res.render('food', {
+    foodItem: foods[req.params.id]
   });
 });
 

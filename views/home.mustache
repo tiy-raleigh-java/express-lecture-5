@@ -6,15 +6,19 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <h1>Hello, World!</h1>
-    <a href="/food">Go to the fruit</a>
+    <h1>Pick a food!</h1>
+
+    <img class="food" src="/images/food.jpg" />
+
     <ol>
-      {{#fruits}}
-        <li><a href="/food/{{.}}">{{.}}</a></li>
-      {{/fruits}}
+      {{#foods}}
+        <!-- this goes to a particular food by its index in the list of foods -->
+        <li><a href="/food/{{id}}">
+          {{name}}
+        </a></li>
+      {{/foods}}
     </ol>
 
     <p>It is currently {{ formattedDate }}. Have a great day!</p>
-    <img src="/images/sneeze.gif" />
   </body>
 </html>

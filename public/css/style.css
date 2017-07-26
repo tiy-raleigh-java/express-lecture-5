@@ -1,5 +1,7 @@
-* {
-  border: 1px solid blue;
-  margin: 0.25em;
-  padding: 0.25em;
+img {
+  width: 350px;
+}
+
+img.food {
+  float: right;
 }
