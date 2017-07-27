@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const morgan = require('morgan');
 const expressValidator = require('express-validator');
-const foods = require('./food');
+const session = require('express-session');
+// const foods = require('./food');
 const fs = require('fs');
 const app = express();
 
@@ -12,6 +13,15 @@ const app = express();
 app.engine('handlebars', exphbs());
 app.set('views', './views');
 app.set('view engine', 'handlebars');
+
+// configure session support middleware with express-session
+app.use(
+  session({
+    secret: 'keyboard kitten', // this is a password. make it unique
+    resave: false, // don't resave the session into memory if it hasn't changed
+    saveUninitialized: true // always create a session, even if we're not storing anything in it.
+  })
+);
 
 // setup morgan for logging requests
 // put this above other stuff in the hope that it will log static resources
@@ -28,18 +38,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // other methods to the req.
 app.use(expressValidator());
 
+// this middleware creates a default session
+app.use((req, res, next) => {
+  // if we don't already have an array of foods
+  if (!req.session.foods) {
+    // then create an empty array of foods
+    req.session.foods = [];
+  }
+
+  console.log(req.session);
+
+  next();
+});
+
 // configure the webroot
 app.get('/', function(req, res) {
   res.render('home', {
     formattedDate: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
-    foods: foods
+    foods: req.session.foods
   });
 });
 
 // show a particular food
 app.get('/food/:index', function(req, res) {
   res.render('food', {
-    foodItem: foods[req.params.index]
+    foodItem: req.session.foods[req.params.index]
   });
 });
 
@@ -87,7 +110,7 @@ app.post('/addFood', function(req, res) {
     // there were no errors. save the food item
 
     // store the food item in our array of foods
-    foods.push(foodItem);
+    req.session.foods.push(foodItem);
 
     // now that I've added the food item to the array, redirect to the homepage
     res.redirect('/');
