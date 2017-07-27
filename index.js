@@ -2,6 +2,7 @@ const express = require('express');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
+const morgan = require('morgan');
 const foods = require('./food');
 const fs = require('fs');
 const app = express();
@@ -10,6 +11,10 @@ const app = express();
 app.engine('mustache', mustacheExpress());
 app.set('views', './views');
 app.set('view engine', 'mustache');
+
+// setup morgan for logging requests
+// put this above other stuff in the hope that it will log static resources
+app.use(morgan('combined'));
 
 // tell express how to serve static files
 app.use(express.static('public'));
