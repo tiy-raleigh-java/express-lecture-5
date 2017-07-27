@@ -71,7 +71,10 @@ app.post('/addFood', function(req, res) {
 
   // validate the food item's data
   req.checkBody('name', 'Name is required').notEmpty();
-
+  // make sure that the serving is provided.
+  req.checkBody('serving', 'Serving is required').notEmpty();
+  // make sure that the serving is provided.
+  req.checkBody('serving', 'Serving is must uppercase').isUppercase();
   // get all errors from our validation that we just did as an array
   let errors = req.validationErrors();
 
@@ -79,7 +82,7 @@ app.post('/addFood', function(req, res) {
     // there were errors, report them
     console.log(errors);
 
-    res.render('foodForm', { errors: errors });
+    res.render('foodForm', { errors: errors, foodItem: foodItem });
   } else {
     // there were no errors. save the food item
 

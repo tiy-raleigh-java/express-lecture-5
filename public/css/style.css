@@ -10,3 +10,8 @@ img {
 img.food {
   float: right;
 }
+
+.error {
+  color: red;
+  background-color: yellow;
+}

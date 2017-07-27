@@ -9,17 +9,19 @@
     <h1>Add a new Food Item</h1>
     <a href="/">Home</a>
 
+    <ul class="error">
     {{#errors}}
-      there was an error
+        <li>{{msg}}</li>
     {{/errors}}
+    </ul>
 
     <form action="/addFood" method="post">
-      <div><input type="text" name="name" placeholder="Name" /></div>
-      <div><input type="text" name="serving" placeholder="Serving" /></div>
-      <div><input type="number" name="calories" placeholder="Calories" /></div>
-      <div><input type="number" name="protein" placeholder="Protein" /></div>
-      <div><input type="number" name="fat" placeholder="Fat" /></div>
-      <div><input type="number" name="carbs" placeholder="Carbs" /></div>
+      <div><input type="text" name="name" placeholder="Name" value="{{foodItem.name}}" /></div>
+      <div><input type="text" name="serving" placeholder="Serving" value="{{foodItem.serving}}"  /></div>
+      <div><input type="number" name="calories" placeholder="Calories" value="{{foodItem.calories}}"  /></div>
+      <div><input type="number" name="protein" placeholder="Protein" value="{{foodItem.protein}}"  /></div>
+      <div><input type="number" name="fat" placeholder="Fat" value="{{foodItem.fat}}"  /></div>
+      <div><input type="number" name="carbs" placeholder="Carbs" value="{{foodItem.carbs}}" /></div>
 
       <button>Save Food</button>
     </form>
