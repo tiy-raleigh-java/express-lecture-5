@@ -1,6 +1,5 @@
 module.exports = [
   {
-    id: 0,
     name: 'Apple Pie',
     serving: '1 piece',
     calories: 2420,
@@ -11,7 +10,6 @@ module.exports = [
   },
 
   {
-    id: 1,
     name: 'Broccoli',
     serving: '1 spear',
     calories: 40,
@@ -22,7 +20,6 @@ module.exports = [
   },
 
   {
-    id: 2,
     name: 'Doughnuts',
     serving: '1',
     calories: 235,
@@ -33,7 +30,6 @@ module.exports = [
   },
 
   {
-    id: 3,
     name: 'Eggplant',
     serving: '1 cup',
     calories: 25,
@@ -44,7 +40,6 @@ module.exports = [
   },
 
   {
-    id: 4,
     name: 'Strawberries',
     serving: '10 oz',
     calories: 275,
