@@ -1,10 +1,10 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const moment = require('moment');
 const morgan = require('morgan');
 const expressValidator = require('express-validator');
 const session = require('express-session');
+const db = require('./db');
 // const foods = require('./food');
 const fs = require('fs');
 const app = express();
@@ -13,6 +13,10 @@ const app = express();
 const foodRoutes = require('./routes/food');
 const numberRoutes = require('./routes/number');
 const rootRoutes = require('./routes/root');
+const restaurantsRoutes = require('./routes/restaurants');
+
+// Connection URL
+let url = 'mongodb://localhost:27017/newdb';
 
 // tell express to use handlebars
 app.engine('handlebars', exphbs());
@@ -52,5 +56,12 @@ app.use('/food', foodRoutes);
 // add our number-related routes
 app.use('/number', numberRoutes);
 
-// make express listen on port 3000
-app.listen(3000);
+// add restaurant Routes
+app.use('/restaurants', restaurantsRoutes);
+
+db.connect(url, (err, db) => {
+  if (!err) {
+    // make express listen on port 3000
+    app.listen(3000, () => console.log('ready to roll!!'));
+  }
+});
